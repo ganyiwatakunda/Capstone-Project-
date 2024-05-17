@@ -65,8 +65,6 @@ def load_model(args):
     model.load_state_dict(torch.load(args.ckpt_path)['state_dict'], strict=False)
     return model
 
-
-
 def forecast(model, img_path, args):
     # Load and preprocess the image
     img_transforms = Compose([Resize((10, 10)), ToTensor(), Normalize(mean=[0.012, 0.010, 0.008], std=[0.029, 0.024, 0.025])])
@@ -86,7 +84,10 @@ def forecast(model, img_path, args):
 
     return y_pred.detach().cpu().numpy().flatten()[:args.output_dim]
 
-if __name__ == '__main__':
+def main():
+    st.title("Zero-Shot Sales Forecasting")
+
+    # Load model and configuration
     parser = argparse.ArgumentParser(description='Zero-shot sales forecasting')
 
     # General arguments
@@ -112,16 +113,7 @@ if __name__ == '__main__':
     parser.add_argument('--num_attn_heads', type=int, default=4)
     parser.add_argument('--num_hidden_layers', type=int, default=1)
 
-
-
     args = parser.parse_args()
-
-def main():
-    st.title("Zero-Shot Sales Forecasting")
-
-    # Load model and configuration
-
-
 
     model = load_model(args)
 
