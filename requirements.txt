@@ -1,6 +1,6 @@
 #python_version == 3.8.12
 # Python 3.8.12
---find-links git+https://github.com/liyaodev/fairseq.git
+git+https://github.com/liyaodev/fairseq.git
 numpy==1.22.2
 pandas==1.2.5
 matplotlib==3.5.1
