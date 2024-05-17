@@ -84,37 +84,45 @@ def forecast(model, img_path, args):
 
     return y_pred.detach().cpu().numpy().flatten()[:args.output_dim]
 
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Zero-shot sales forecasting')
+
+    # General arguments
+    parser.add_argument('--data_folder', type=str, default='VISUELLE/')
+    parser.add_argument('--log_dir', type=str, default='log')
+    parser.add_argument('--seed', type=int, default=21)
+    parser.add_argument('--epochs', type=int, default=30)
+    parser.add_argument('--gpu_num', type=int, default=0)
+
+    # Model specific arguments
+    parser.add_argument('--model_type', type=str, default='GTM', help='Choose between GTM or FCN')
+    parser.add_argument('--use_trends', type=int, default=1)
+    parser.add_argument('--use_img', type=int, default=1)
+    parser.add_argument('--use_text', type=int, default=1)
+    parser.add_argument('--trend_len', type=int, default=52)
+    parser.add_argument('--num_trends', type=int, default=3)
+    parser.add_argument('--batch_size', type=int, default=28)
+    parser.add_argument('--embedding_dim', type=int, default=32)
+    parser.add_argument('--hidden_dim', type=int, default=64)
+    parser.add_argument('--output_dim', type=int, default=12)
+    parser.add_argument('--use_encoder_mask', type=int, default=1)
+    parser.add_argument('--autoregressive', type=int, default=0)
+    parser.add_argument('--num_attn_heads', type=int, default=4)
+    parser.add_argument('--num_hidden_layers', type=int, default=1)
+
+    # wandb arguments
+    parser.add_argument('--ganyiwatakunda', type=str, default='ganyiwatakunda')
+    parser.add_argument('--capstoneproject', type=str, default='GTM')
+    parser.add_argument('--wandb_run', type=str, default='experiment2')
+
+    args = parser.parse_args()
+    run(args)
+
 def main():
     st.title("Zero-Shot Sales Forecasting")
 
     # Load model and configuration
-   if __name__ == '__main__':
-        parser = argparse.ArgumentParser(description='Zero-shot sales forecasting')
-    
-        # General arguments
-        parser.add_argument('--data_folder', type=str, default='VISUELLE/')
-        parser.add_argument('--log_dir', type=str, default='log')
-        parser.add_argument('--seed', type=int, default=21)
-        parser.add_argument('--epochs', type=int, default=30)
-        parser.add_argument('--gpu_num', type=int, default=0)
-    
-        # Model specific arguments
-        parser.add_argument('--model_type', type=str, default='GTM', help='Choose between GTM or FCN')
-        parser.add_argument('--use_trends', type=int, default=1)
-        parser.add_argument('--use_img', type=int, default=1)
-        parser.add_argument('--use_text', type=int, default=1)
-        parser.add_argument('--trend_len', type=int, default=52)
-        parser.add_argument('--num_trends', type=int, default=3)
-        parser.add_argument('--batch_size', type=int, default=28)
-        parser.add_argument('--embedding_dim', type=int, default=32)
-        parser.add_argument('--hidden_dim', type=int, default=64)
-        parser.add_argument('--output_dim', type=int, default=12)
-        parser.add_argument('--use_encoder_mask', type=int, default=1)
-        parser.add_argument('--autoregressive', type=int, default=0)
-        parser.add_argument('--num_attn_heads', type=int, default=4)
-        parser.add_argument('--num_hidden_layers', type=int, default=1)
-        args = parser.parse_args()
-    run(args)
+
 
 
     model = load_model(args)
