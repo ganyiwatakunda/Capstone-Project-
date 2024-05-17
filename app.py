@@ -112,13 +112,9 @@ if __name__ == '__main__':
     parser.add_argument('--num_attn_heads', type=int, default=4)
     parser.add_argument('--num_hidden_layers', type=int, default=1)
 
-    # wandb arguments
-    parser.add_argument('--ganyiwatakunda', type=str, default='ganyiwatakunda')
-    parser.add_argument('--capstoneproject', type=str, default='GTM')
-    parser.add_argument('--wandb_run', type=str, default='experiment2')
+
 
     args = parser.parse_args()
-    run(args)
 
 def main():
     st.title("Zero-Shot Sales Forecasting")
