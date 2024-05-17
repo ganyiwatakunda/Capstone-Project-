@@ -7,6 +7,17 @@ from transformers import pipeline
 from torchvision import models
 from fairseq.optim.adafactor import Adafactor
 
+from dataclasses import dataclass, field
+from fairseq.dataclass.configs import CommonConfig
+
+def create_common_config():
+    return CommonConfig()
+
+@dataclass
+class MyDataclass:
+    common: CommonConfig = field(default_factory=create_common_config)
+    # Other fields...
+
 
 class PositionalEncoding(nn.Module):
     def __init__(self, d_model, dropout=0.1, max_len=52):
