@@ -18,6 +18,7 @@ def cal_error_metrics(gt, forecasts):
 
 def load_model(args):
     # Load category and color encodings
+    data_folder= 'VISUELLE/'
     cat_dict = torch.load(os.path.join(args.data_folder, 'category_labels.pt'))
     col_dict = torch.load(os.path.join(args.data_folder, 'color_labels.pt'))
     fab_dict = torch.load(os.path.join(args.data_folder, 'fabric_labels.pt'))
