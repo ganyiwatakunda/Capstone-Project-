@@ -2,6 +2,8 @@ import streamlit as st
 import os
 import torch
 import pandas as pd
+import argparse
+
 import numpy as np
 from PIL import Image
 from torchvision.transforms import Resize, ToTensor, Normalize, Compose
