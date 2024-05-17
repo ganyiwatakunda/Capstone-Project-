@@ -1,0 +1,23 @@
+from pydrive.auth import GoogleAuth
+from pydrive.drive import GoogleDrive
+
+def load_model_from_gdrive(file_id, local_filename):
+    # Authenticate with Google Drive
+    gauth = GoogleAuth()
+    gauth.LocalWebserverAuth()
+
+    # Create a GoogleDrive instance
+    drive = GoogleDrive(gauth)
+
+    # Download the model file from Google Drive
+    file = drive.CreateFile({'id': file_id})
+    file.Download(local_filename)
+
+    # Load the model from the local file
+    import tensorflow as tf
+    model = tf.keras.models.load_model(local_filename)
+
+    return model
+
+# Example usage
+model = load_model_from_gdrive('1GanC5jIQVS3C9WpRkYyre6424jJ3r83w', 'MyDrive/VISUELLE/GTM_experiment2---epoch=29---16-05-2024-08-49-43.ckpt')
