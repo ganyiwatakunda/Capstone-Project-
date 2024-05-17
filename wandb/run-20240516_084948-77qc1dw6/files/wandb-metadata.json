@@ -1,0 +1,50 @@
+{
+    "os": "Windows-10-10.0.22631-SP0",
+    "python": "3.8.19",
+    "heartbeatAt": "2024-05-16T06:49:54.577099",
+    "startedAt": "2024-05-16T06:49:48.352318",
+    "docker": null,
+    "cuda": null,
+    "args": [
+        "--data_folder",
+        "VISUELLE/"
+    ],
+    "state": "running",
+    "program": "train.py",
+    "codePathLocal": "train.py",
+    "codePath": "train.py",
+    "host": "AngelsMa-PC",
+    "username": "angels.makuwerere",
+    "executable": "C:\\Users\\angels.makuwerere\\AppData\\Local\\anaconda3\\envs\\takunda\\python.exe",
+    "cpu_count": 8,
+    "cpu_count_logical": 16,
+    "cpu_freq": {
+        "current": 2508.0,
+        "min": 0.0,
+        "max": 3201.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 2508.0,
+            "min": 0.0,
+            "max": 3201.0
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 659.2685508728027,
+            "used": 577.8709526062012
+        }
+    },
+    "gpu": "NVIDIA GeForce RTX 3060 Laptop GPU",
+    "gpu_count": 1,
+    "gpu_devices": [
+        {
+            "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+            "memory_total": 6442450944
+        }
+    ],
+    "memory": {
+        "total": 31.237815856933594
+    }
+}

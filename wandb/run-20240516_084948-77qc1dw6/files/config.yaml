@@ -1,0 +1,194 @@
+wandb_version: 1
+
+_wandb:
+  desc: null
+  value:
+    python_version: 3.8.19
+    cli_version: 0.17.0
+    framework: huggingface
+    huggingface_version: 4.40.2
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    start_time: 1715842188
+    t:
+      1:
+      - 1
+      - 5
+      - 9
+      - 11
+      - 41
+      - 49
+      - 50
+      - 53
+      - 55
+      - 64
+      - 103
+      2:
+      - 1
+      - 5
+      - 9
+      - 11
+      - 41
+      - 49
+      - 50
+      - 53
+      - 55
+      - 64
+      - 103
+      3:
+      - 1
+      - 13
+      - 23
+      4: 3.8.19
+      5: 0.17.0
+      6: 4.40.2
+      8:
+      - 3
+      - 5
+      13: windows-amd64
+embedding_dim:
+  desc: null
+  value: 32
+hidden_dim:
+  desc: null
+  value: 64
+output_dim:
+  desc: null
+  value: 12
+num_heads:
+  desc: null
+  value: 4
+num_layers:
+  desc: null
+  value: 1
+use_text:
+  desc: null
+  value: 1
+use_img:
+  desc: null
+  value: 1
+cat_dict:
+  desc: null
+  value:
+    capris: 0
+    cloak: 1
+    culottes: 2
+    doll dress: 3
+    drop sleeve: 4
+    gitana skirt: 5
+    kimono dress: 6
+    long cardigan: 7
+    long coat: 8
+    long dress: 9
+    long duster: 10
+    long skirt: 11
+    long sleeve: 12
+    longuette skirt: 13
+    maxi: 14
+    medium cardigan: 15
+    medium coat: 16
+    medium duster: 17
+    midi skirt: 18
+    miniskirt: 19
+    patterned: 20
+    printed: 21
+    sheath dress: 22
+    shirt dress: 23
+    short cardigan: 24
+    short coat: 25
+    short sleeves: 26
+    shorts: 27
+    sleeveless: 28
+    solid colours: 29
+    tracksuit: 30
+    trapeze dress: 31
+col_dict:
+  desc: null
+  value:
+    yellow: 0
+    brown: 1
+    blue: 2
+    grey: 3
+    green: 4
+    black: 5
+    red: 6
+    white: 7
+    orange: 8
+    violet: 9
+fab_dict:
+  desc: null
+  value:
+    acrylic: 0
+    scuba crepe: 49
+    tulle: 55
+    angora: 1
+    faux leather: 14
+    georgette: 21
+    lurex: 30
+    nice: 38
+    crepe: 9
+    satin cotton: 47
+    silky satin: 51
+    fur: 20
+    matte jersey: 33
+    plisse: 43
+    velvet: 56
+    lace: 27
+    cotton: 8
+    piquet: 42
+    plush: 45
+    bengaline: 2
+    jacquard: 26
+    frise: 19
+    technical: 53
+    cady: 3
+    dark jeans: 11
+    light jeans: 28
+    ity: 25
+    plumetis: 44
+    polyviscous: 46
+    dainetto: 10
+    webbing: 58
+    foam rubber: 18
+    heavy jeans: 23
+    chanel: 5
+    marocain: 32
+    macrame: 31
+    embossed: 13
+    nylon: 39
+    tencel: 54
+    paillettes: 41
+    chambree: 4
+    chine crepe: 6
+    linen: 29
+    muslin cotton or silk: 36
+    tactel: 52
+    viscose twill: 57
+    cloth: 7
+    mohair: 35
+    mutton: 37
+    scottish: 48
+    milano stitch: 34
+    devore: 12
+    hron: 24
+    ottoman: 40
+    fluid: 16
+    flamed: 15
+    fluid polyviscous: 17
+    shiny jersey: 50
+    goose: 22
+trend_len:
+  desc: null
+  value: 52
+num_trends:
+  desc: null
+  value: 3
+gpu_num:
+  desc: null
+  value: 0
+use_encoder_mask:
+  desc: null
+  value: 1
+autoregressive:
+  desc: null
+  value: 0
