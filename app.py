@@ -18,7 +18,7 @@ def cal_error_metrics(gt, forecasts):
 
 def load_model(args):
     # Load category and color encodings
-    cat_dict = torch.load(os.path.join(args.VISUELLE, 'category_labels.pt'))
+    cat_dict = torch.load(os.path.join(args.data_folder, 'category_labels.pt'))
     col_dict = torch.load(os.path.join(args.data_folder, 'color_labels.pt'))
     fab_dict = torch.load(os.path.join(args.data_folder, 'fabric_labels.pt'))
 
@@ -63,6 +63,8 @@ def load_model(args):
     model.load_state_dict(torch.load(args.ckpt_path)['state_dict'], strict=False)
     return model
 
+
+
 def forecast(model, img_path, args):
     # Load and preprocess the image
     img_transforms = Compose([Resize((10, 10)), ToTensor(), Normalize(mean=[0.012, 0.010, 0.008], std=[0.029, 0.024, 0.025])])
@@ -86,26 +88,34 @@ def main():
     st.title("Zero-Shot Sales Forecasting")
 
     # Load model and configuration
-    args = {
-        'data_folder': 'VISUELLE/',
-        'ckpt_path': 'log/GTM/GTM_experiment2---epoch=29---16-05-2024-08-49-43.ckpt',
-        'gpu_num': 0,
-        'seed': 21,
-        'model_type': 'GTM',
-        'use_trends': 1,
-        'use_img': 1,
-        'use_text': 1,
-        'trend_len': 52,
-        'num_trends': 3,
-        'embedding_dim': 32,
-        'hidden_dim': 64,
-        'output_dim': 12,
-        'use_encoder_mask': 1,
-        'autoregressive': 0,
-        'num_attn_heads': 4,
-        'num_hidden_layers': 1,
-        'wandb_run': 'experiment2'
-    }
+   if __name__ == '__main__':
+        parser = argparse.ArgumentParser(description='Zero-shot sales forecasting')
+    
+        # General arguments
+        parser.add_argument('--data_folder', type=str, default='VISUELLE/')
+        parser.add_argument('--log_dir', type=str, default='log')
+        parser.add_argument('--seed', type=int, default=21)
+        parser.add_argument('--epochs', type=int, default=30)
+        parser.add_argument('--gpu_num', type=int, default=0)
+    
+        # Model specific arguments
+        parser.add_argument('--model_type', type=str, default='GTM', help='Choose between GTM or FCN')
+        parser.add_argument('--use_trends', type=int, default=1)
+        parser.add_argument('--use_img', type=int, default=1)
+        parser.add_argument('--use_text', type=int, default=1)
+        parser.add_argument('--trend_len', type=int, default=52)
+        parser.add_argument('--num_trends', type=int, default=3)
+        parser.add_argument('--batch_size', type=int, default=28)
+        parser.add_argument('--embedding_dim', type=int, default=32)
+        parser.add_argument('--hidden_dim', type=int, default=64)
+        parser.add_argument('--output_dim', type=int, default=12)
+        parser.add_argument('--use_encoder_mask', type=int, default=1)
+        parser.add_argument('--autoregressive', type=int, default=0)
+        parser.add_argument('--num_attn_heads', type=int, default=4)
+        parser.add_argument('--num_hidden_layers', type=int, default=1)
+        args = parser.parse_args()
+    run(args)
+
 
     model = load_model(args)
 
