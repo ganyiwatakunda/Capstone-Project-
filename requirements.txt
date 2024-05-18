@@ -1,6 +1,8 @@
 #python_version == 3.8.12
 # Python 3.8.12
 git+https://github.com/liyaodev/fairseq.git
+git+https://github.com/googledrive/PyDrive.git#egg=PyDrive
+
 numpy
 pandas
 matplotlib
