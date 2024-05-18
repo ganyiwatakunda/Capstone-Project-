@@ -92,7 +92,7 @@ def cal_error_metrics(gt, forecasts):
     wape = 100 * np.sum(np.sum(np.abs(gt - forecasts), axis=-1)) / np.sum(gt)
     return round(mae, 3), round(wape, 3)
 
-def load_model(args):
+def load_modell(args):
     # Load category and color encodings
     cat_dict = torch.load(os.path.join(args.data_folder, 'category_labels.pt'))
     col_dict = torch.load(os.path.join(args.data_folder, 'color_labels.pt'))
@@ -101,50 +101,7 @@ def load_model(args):
     # Load Google trends
     gtrends = pd.read_csv(os.path.join(args.data_folder, 'gtrends.csv'), index_col=[0], parse_dates=True)
 
-    # Create model
-    if args.model_type == 'FCN':
-        model = FCN(
-            embedding_dim=args.embedding_dim,
-            hidden_dim=args.hidden_dim,
-            output_dim=args.output_dim,
-            cat_dict=cat_dict,
-            col_dict=col_dict,
-            fab_dict=fab_dict,
-            use_trends=args.use_trends,
-            use_text=args.use_text,
-            use_img=args.use_img,
-            trend_len=args.trend_len,
-            num_trends=args.num_trends,
-            use_encoder_mask=args.use_encoder_mask,
-            gpu_num=args.gpu_num
-        )
-    else:
-        model = GTM(
-            embedding_dim=args.embedding_dim,
-            hidden_dim=args.hidden_dim,
-            output_dim=args.output_dim,
-            num_heads=args.num_attn_heads,
-            num_layers=args.num_hidden_layers,
-            cat_dict=cat_dict,
-            col_dict=col_dict,
-            fab_dict=fab_dict,
-            use_text=args.use_text,
-            use_img=args.use_img,
-            trend_len=args.trend_len,
-            num_trends=args.num_trends,
-            use_encoder_mask=args.use_encoder_mask,
-            autoregressive=args.autoregressive,
-            gpu_num=args.gpu_num
-        )
-
-    # Load the model checkpoint from Google Drive
-    #model.load_state_dict(torch.load(load_model_from_gdrive('1GanC5jIQVS3C9WpRkYyre6424jJ3r83w', 'MyDrive/VISUELLE/GTM_experiment2---epoch=29---16-05-2024-08-49-43.ckpt'))['state_dict'], strict=False)
     
-    
-    return model
-    #model.load_state_dict(torch.load(args.ckpt_path)['state_dict'], strict=False)
-    #return model
-
 def forecast(model, img_path, args):
     # Load and preprocess the image
     img_transforms = Compose([Resize((10, 10)), ToTensor(), Normalize(mean=[0.012, 0.010, 0.008], std=[0.029, 0.024, 0.025])])
@@ -196,7 +153,7 @@ def main():
 
     args = parser.parse_args()
 
-    model = load_model(args)
+    model = load_modell(args)
 
     # Streamlit app
     st.header("Upload an Image")
