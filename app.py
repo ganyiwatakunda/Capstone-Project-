@@ -17,28 +17,45 @@ from pydrive.drive import GoogleDrive
 from oauth2client.client import GoogleCredentials
 
 
-def load_model_from_gdrive(file_id, local_filename):
-    # Authenticate with Google Drive
-    
+def load_model(model_path, device):
+    """
+    Load a pre-trained model from the specified path.
+
+    Args:
+        model_path (str): The path to the model checkpoint.
+        device (torch.device): The device to load the model on (e.g., 'cpu', 'cuda').
+
+    Returns:
+        The loaded PyTorch model.
+    """
     gauth = GoogleAuth()
     gauth.settings['client_config_file'] = r'example\client_secrets.json'
     gauth.LocalWebserverAuth()
 
     # Create a GoogleDrive instance
     drive = GoogleDrive(gauth)
+    try:
+        # Load the model checkpoint
+        checkpoint = torch.load(model_path, map_location=device)
 
-    from pydrive.auth import GoogleAuth
+        # Create the model instance
+        model.load_state_dict(checkpoint['state_dict'], strict=False)
 
-    
-    # Download the model file from Google Drive
-    file = drive.CreateFile({'id': file_id})
-    file.Download(local_filename)
+        return model
+    except Exception as e:
+        print(f"Error loading model: {e}")
+        return None
 
-    # Load the model from the local file
-    import tensorflow as tf
-    model = tf.keras.models.load_model(local_filename)
+# Example usage
+file_id = '1GanC5jIQVS3C9WpRkYyre6424jJ3r83w'
+save_path = 'MyDrive/VISUELLE/GTM_experiment2---epoch=29---16-05-2024-08-49-43.ckpt'
 
-    return model
+# Download the model checkpoint from Google Drive
+downloaded_path = load_model_from_gdrive(file_id, save_path)
+
+# Load the model from the downloaded checkpoint
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+model = load_model(downloaded_path, device)
 
 def cal_error_metrics(gt, forecasts):
     # Absolute errors
@@ -92,7 +109,9 @@ def load_model(args):
         )
 
     # Load the model checkpoint from Google Drive
-    model.load_state_dict(torch.load(load_model_from_gdrive('1GanC5jIQVS3C9WpRkYyre6424jJ3r83w', 'MyDrive/VISUELLE/GTM_experiment2---epoch=29---16-05-2024-08-49-43.ckpt'))['state_dict'], strict=False)
+    #model.load_state_dict(torch.load(load_model_from_gdrive('1GanC5jIQVS3C9WpRkYyre6424jJ3r83w', 'MyDrive/VISUELLE/GTM_experiment2---epoch=29---16-05-2024-08-49-43.ckpt'))['state_dict'], strict=False)
+    
+    
     return model
     #model.load_state_dict(torch.load(args.ckpt_path)['state_dict'], strict=False)
     #return model
