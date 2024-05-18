@@ -21,7 +21,7 @@ def load_model_from_gdrive(file_id, local_filename):
     # Authenticate with Google Drive
     
     gauth = GoogleAuth()
-    gauth.settings[‘client_config_file’] = r’example\client_secrets.json’
+    gauth.settings['client_config_file'] = r'example\client_secrets.json'
     gauth.LocalWebserverAuth()
 
     # Create a GoogleDrive instance
