@@ -17,12 +17,17 @@ from pydrive.drive import GoogleDrive
 
 def load_model_from_gdrive(file_id, local_filename):
     # Authenticate with Google Drive
+    
     gauth = GoogleAuth()
+    gauth.settings[‘client_config_file’] = r’example\client_secrets.json’
     gauth.LocalWebserverAuth()
 
     # Create a GoogleDrive instance
     drive = GoogleDrive(gauth)
 
+    from pydrive.auth import GoogleAuth
+
+    
     # Download the model file from Google Drive
     file = drive.CreateFile({'id': file_id})
     file.Download(local_filename)
