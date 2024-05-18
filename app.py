@@ -85,7 +85,7 @@ def load_model(args):
         )
 
     # Load the model checkpoint from Google Drive
-    model.load_state_dict(torch.load(load_model_from_gdrive(args.ckpt_path, 'MyDrive/VISUELLE/GTM_experiment2---epoch=29---16-05-2024-08-49-43.ckpt'))['state_dict'], strict=False)
+    model.load_state_dict(torch.load(load_model_from_gdrive('1GanC5jIQVS3C9WpRkYyre6424jJ3r83w', 'MyDrive/VISUELLE/GTM_experiment2---epoch=29---16-05-2024-08-49-43.ckpt'))['state_dict'], strict=False)
     return model
     #model.load_state_dict(torch.load(args.ckpt_path)['state_dict'], strict=False)
     #return model
