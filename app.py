@@ -14,6 +14,8 @@ from sklearn.metrics import mean_absolute_error
 
 from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
+from oauth2client.client import GoogleCredentials
+
 
 def load_model_from_gdrive(file_id, local_filename):
     # Authenticate with Google Drive
