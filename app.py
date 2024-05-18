@@ -17,6 +17,40 @@ from pydrive.drive import GoogleDrive
 from oauth2client.client import GoogleCredentials
 
 
+import os
+from pydrive.auth import GoogleAuth
+from pydrive.drive import GoogleDrive
+import torch
+
+def load_model_from_gdrive(file_id, save_path):
+    """
+    Load a model checkpoint from Google Drive.
+
+    Args:
+        file_id (str): The ID of the file to download from Google Drive.
+        save_path (str): The local path to save the downloaded file.
+
+    Returns:
+        The downloaded file path.
+    """
+    try:
+        # Authenticate with Google Drive
+        gauth = GoogleAuth()
+        gauth.settings['client_config_file'] = r'example\client_secrets.json'
+        gauth.LocalWebserverAuth()
+
+        # Create a GoogleDrive instance
+        drive = GoogleDrive(gauth)
+
+        # Download the file from Google Drive
+        file = drive.CreateFile({'id': file_id})
+        file.GetContentFile(save_path)
+
+        return save_path
+    except Exception as e:
+        print(f"Error loading model from Google Drive: {e}")
+        return None
+
 def load_model(model_path, device):
     """
     Load a pre-trained model from the specified path.
@@ -28,17 +62,12 @@ def load_model(model_path, device):
     Returns:
         The loaded PyTorch model.
     """
-    gauth = GoogleAuth()
-    gauth.settings['client_config_file'] = r'example\client_secrets.json'
-    gauth.LocalWebserverAuth()
-
-    # Create a GoogleDrive instance
-    drive = GoogleDrive(gauth)
     try:
         # Load the model checkpoint
         checkpoint = torch.load(model_path, map_location=device)
 
         # Create the model instance
+        model = YourModelClass(...)  # Replace with your model initialization code
         model.load_state_dict(checkpoint['state_dict'], strict=False)
 
         return model
