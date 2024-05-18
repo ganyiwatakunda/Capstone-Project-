@@ -12,6 +12,27 @@ from models.FCN import FCN
 from utils.data_multitrends import ZeroShotDataset
 from sklearn.metrics import mean_absolute_error
 
+from pydrive.auth import GoogleAuth
+from pydrive.drive import GoogleDrive
+
+def load_model_from_gdrive(file_id, local_filename):
+    # Authenticate with Google Drive
+    gauth = GoogleAuth()
+    gauth.LocalWebserverAuth()
+
+    # Create a GoogleDrive instance
+    drive = GoogleDrive(gauth)
+
+    # Download the model file from Google Drive
+    file = drive.CreateFile({'id': file_id})
+    file.Download(local_filename)
+
+    # Load the model from the local file
+    import tensorflow as tf
+    model = tf.keras.models.load_model(local_filename)
+
+    return model
+
 def cal_error_metrics(gt, forecasts):
     # Absolute errors
     mae = mean_absolute_error(gt, forecasts)
@@ -62,8 +83,12 @@ def load_model(args):
             autoregressive=args.autoregressive,
             gpu_num=args.gpu_num
         )
-    model.load_state_dict(torch.load(args.ckpt_path)['state_dict'], strict=False)
+
+    # Load the model checkpoint from Google Drive
+    model.load_state_dict(torch.load(load_model_from_gdrive(args.ckpt_path, 'MyDrive/VISUELLE/GTM_experiment2---epoch=29---16-05-2024-08-49-43.ckpt'))['state_dict'], strict=False)
     return model
+    #model.load_state_dict(torch.load(args.ckpt_path)['state_dict'], strict=False)
+    #return model
 
 def forecast(model, img_path, args):
     # Load and preprocess the image
